@@ -14,6 +14,8 @@ jobs:
         - npx codeclimate-test-reporter < coverage/lcov.info
     - state: release
       language: node_js
+      node_js:
+        - 10
       install:
         - npm i -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator
           @semantic-release/github 
