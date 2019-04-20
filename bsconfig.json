@@ -1,0 +1,23 @@
+{
+  "name": "bs-telefonnummer",
+  "version": "0.1.0",
+  "sources": [
+    {
+      "dir": "src"
+    },
+    {
+      "dir": "__tests__",
+      "type": "dev"
+    }
+  ],
+  "package-specs": {
+    "module": "commonjs"
+  },
+  "suffix": ".bs.js",
+  "bs-dev-dependencies": ["@glennsl/bs-jest"],
+  "bs-dependencies": [],
+  "warnings": {
+    "error": "+101"
+  },
+  "refmt": 3
+}

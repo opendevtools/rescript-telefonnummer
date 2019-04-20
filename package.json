@@ -1,0 +1,34 @@
+{
+  "name": "bs-telefonnummer",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "is-ci \"test:ci\" \"test:watch\"",
+    "test:ci": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "BuckleScript",
+    "ReasonML",
+    "Phone number",
+    "Telefonnummer",
+    "Parser"
+  ],
+  "author": "believer <rickard.laurin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@glennsl/bs-jest": "0.4.8",
+    "bs-platform": "5.0.3",
+    "is-ci-cli": "1.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/believer/bs-telefonnummer/issues"
+  },
+  "homepage": "https://github.com/believer/bs-telefonnummer#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/believer/bs-telefonnummer.git"
+  }
+}
