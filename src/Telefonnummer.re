@@ -76,6 +76,7 @@ module VoiceMail = {
 };
 
 module Mobile = {
+  let validMobile = [%re "/^07(0|2|3|6|9)\\d{7}$/"];
   let isMobile = phoneNumber => phoneNumber |> normalize |> startsWith("07");
 
   let handle = AreaCode.Three.sevenDigit;
@@ -111,5 +112,40 @@ let parse = phoneNumber => {
   | VoiceMail => {j|Röstbrevlåda|j}
   | Mobile => phoneNumber |> Normalize.clean |> Mobile.handle
   | Landline => phoneNumber |> Normalize.clean |> Landline.handle
+  };
+};
+
+module Validator = {
+  let findValidByRiktnummer = (digits, trailingDigits) => {
+    let codes =
+      Riktnummer.validRiktnummer
+      |> Js.Array.filter(((number, _)) =>
+           number->Js.String.length === digits
+         )
+      |> Js.Array.map(((number, _)) => number)
+      |> Js.Array.joinWith("|");
+
+    Js.Re.fromString({j|^($codes)\\d{5,$trailingDigits}\$|j});
+  };
+
+  let isValid = phoneNumber => {
+    phoneNumber |> Js.Re.test_([%re "/[a-z]/gi"])
+      ? false
+      : {
+        let normalized = phoneNumber->Normalize.clean;
+        let digits = normalized->AreaCode.digits;
+        let typeOfNumber = normalized->typeOfNumber;
+
+        switch (typeOfNumber) {
+        | VoiceMail => true
+        | Mobile => normalized |> Js.Re.test_(Mobile.validMobile)
+        | Landline =>
+          switch (digits) {
+          | `Two => normalized |> Js.Re.test_([%re "/^08\\d{6,7}$/"])
+          | `Three => normalized |> Js.Re.test_(findValidByRiktnummer(3, 7))
+          | `Four => normalized |> Js.Re.test_(findValidByRiktnummer(4, 6))
+          }
+        };
+      };
   };
 };

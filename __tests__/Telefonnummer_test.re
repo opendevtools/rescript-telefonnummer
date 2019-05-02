@@ -43,3 +43,18 @@ testAll(
   ((phoneNumber, expected)) =>
   expect(Telefonnummer.parse(phoneNumber)) |> toBe(expected)
 );
+
+testAll(
+  "phone number validation",
+  [
+    ("072- 12 34 5 67", true),
+    ("0721234567", true),
+    ("08123456", true),
+    ("0500123456", true),
+    ("+460311234567", true),
+    ("05001234567", false),
+    ("a08123456", false),
+  ],
+  ((phoneNumber, expected)) =>
+  expect(Telefonnummer.Validator.isValid(phoneNumber)) |> toBe(expected)
+);
