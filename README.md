@@ -21,14 +21,14 @@ Add `bs-telefonnummer` in `bs-dependencies` of `bsconfig.json`
 Takes a phone number of any kind and parses it to a standard format
 
 ```reason
-let parse: Js.String.t => Js.String.t
+let parse: Js.String.t => Js.String.t;
 ```
 
 #### Example
 
 ```reason
-let parsedPhoneNumber = Telefonnummer.parse("081234567") /* 08-123 45 67 */
-let parsedMobileNumber = Telefonnummer.parse("0701234567") /* 070-123 45 67 */
+let parsedPhoneNumber = Telefonnummer.parse("081234567"); /* 08-123 45 67 */
+let parsedMobileNumber = Telefonnummer.parse("0701234567"); /* 070-123 45 67 */
 ```
 
 ### typeOfNumber
@@ -41,13 +41,13 @@ type t =
   | Mobile
   | Landline;
 
-let typeOfNumber: Js.String.t => t
+let typeOfNumber: Js.String.t => t;
 ```
 
 #### Example
 
 ```reason
-let phoneNumberType = Telefonnummer.typeOfNumber("081234567") /* Landline */
+let phoneNumberType = Telefonnummer.typeOfNumber("081234567"); /* Landline */
 ```
 
 ### Normalize
@@ -56,12 +56,28 @@ The `Normalize` module is exposed publically if you need to clean up a phone num
 
 ```reason
 module Normalize = {
-  let clean: Js.String.t => Js.String.t
+  let clean: Js.String.t => Js.String.t;
 }
 ```
 
 #### Example
 
 ```reason
-let cleanPhoneNumber = Telefonnummer.Normalize.clean("08-12 3 45.67") /* 081234567 */
+let cleanPhoneNumber = Telefonnummer.Normalize.clean("08-12 3 45.67"); /* 081234567 */
+```
+
+### Validator
+
+The `Validator` module can help you check if a phone number is valid. It cleans the phone number from any non-number characters.
+
+```reason
+module Validator = {
+  let isValid: Js.String.t => bool;
+}
+```
+
+#### Example
+
+```reason
+let isValid = Telefonnummer.Validator.isValid("08-12 3 45.67"); /* true */
 ```
