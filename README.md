@@ -81,3 +81,19 @@ module Validator = {
 ```reason
 let isValid = Telefonnummer.Validator.isValid("08-12 3 45.67"); /* true */
 ```
+
+### Link
+
+The `Link` module creates phone number links.
+
+```reason
+module Link = {
+  let make: Js.String.t => Js.String.t;
+}
+```
+
+#### Example
+
+```reason
+let link = Telefonnummer.Link.make("08-12 3 45.67"); /* tel:081234567 */
+```

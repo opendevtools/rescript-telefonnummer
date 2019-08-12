@@ -20,6 +20,10 @@ module Normalize = {
   };
 };
 
+module Link = {
+  let make = phoneNumber => "tel:" ++ Normalize.clean(phoneNumber);
+};
+
 module AreaCode = {
   let replacer = (regex, ~replaceWith="$1-$2 $3 $4", ()) =>
     replaceByRe(regex, replaceWith);

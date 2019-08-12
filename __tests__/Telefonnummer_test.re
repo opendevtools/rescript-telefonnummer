@@ -1,6 +1,11 @@
 open Jest;
 open Expect;
 
+test("phonenumber link", () =>
+  expect(Telefonnummer.Link.make("070-123.45x67"))
+  |> toEqual("tel:0701234567")
+);
+
 testAll("voicemail number", ["888", "333", "222", "147"], phoneNumber =>
   expect(Telefonnummer.parse(phoneNumber)) |> toBe({j|Röstbrevlåda|j})
 );
