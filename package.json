@@ -1,5 +1,5 @@
 {
-  "name": "bs-telefonnummer",
+  "name": "re-telefonnummer",
   "version": "0.0.0",
   "scripts": {
     "build": "bsb -make-world",
@@ -24,11 +24,11 @@
     "is-ci-cli": "2.1.2"
   },
   "bugs": {
-    "url": "https://github.com/believer/bs-telefonnummer/issues"
+    "url": "https://github.com/believer/re-telefonnummer/issues"
   },
-  "homepage": "https://github.com/believer/bs-telefonnummer#readme",
+  "homepage": "https://github.com/believer/re-telefonnummer#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/believer/bs-telefonnummer.git"
+    "url": "https://github.com/believer/re-telefonnummer.git"
   }
 }
