@@ -21,14 +21,14 @@ Add `bs-telefonnummer` in `bs-dependencies` of `bsconfig.json`
 Takes a phone number of any kind and parses it to a standard format
 
 ```reason
-let parse: string => string;
+let parse: string => string
 ```
 
 #### Example
 
 ```reason
-let parsedPhoneNumber = Telefonnummer.parse("081234567"); /* 08-123 45 67 */
-let parsedMobileNumber = Telefonnummer.parse("0701234567"); /* 070-123 45 67 */
+let parsedPhoneNumber = Telefonnummer.parse("081234567") /* 08-123 45 67 */
+let parsedMobileNumber = Telefonnummer.parse("0701234567") /* 070-123 45 67 */
 ```
 
 ### typeOfNumber
@@ -39,15 +39,15 @@ Takes a phone number and returns the type. Usable for pattern-matching.
 type t =
   | VoiceMail
   | Mobile
-  | Landline;
+  | Landline
 
-let typeOfNumber: string => t;
+let typeOfNumber: string => t
 ```
 
 #### Example
 
 ```reason
-let phoneNumberType = Telefonnummer.typeOfNumber("081234567"); /* Landline */
+let phoneNumberType = Telefonnummer.typeOfNumber("081234567") /* Landline */
 ```
 
 ### Normalize
@@ -56,14 +56,14 @@ The `Normalize` module is exposed publically if you need to clean up a phone num
 
 ```reason
 module Normalize = {
-  let clean: string => string;
+  let clean: string => string
 }
 ```
 
 #### Example
 
 ```reason
-let cleanPhoneNumber = Telefonnummer.Normalize.clean("08-12 3 45.67"); /* 081234567 */
+let cleanPhoneNumber = Telefonnummer.Normalize.clean("08-12 3 45.67") /* 081234567 */
 ```
 
 ### Validate
@@ -72,14 +72,14 @@ The `Validate` module can help you check if a phone number is valid. It cleans t
 
 ```reason
 module Validate = {
-  let isValid: string => bool;
+  let isValid: string => bool
 }
 ```
 
 #### Example
 
 ```reason
-let isValid = Telefonnummer.Validate.isValid("08-12 3 45.67"); /* true */
+let isValid = Telefonnummer.Validate.isValid("08-12 3 45.67") /* true */
 ```
 
 ### Link
@@ -88,12 +88,12 @@ The `Link` module creates phone number links.
 
 ```reason
 module Link = {
-  let make: string => string;
+  let make: string => string
 }
 ```
 
 #### Example
 
 ```reason
-let link = Telefonnummer.Link.make("08-12 3 45.67"); /* tel:081234567 */
+let link = Telefonnummer.Link.make("08-12 3 45.67") /* tel:081234567 */
 ```

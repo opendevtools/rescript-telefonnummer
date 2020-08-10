@@ -19,9 +19,9 @@
   "author": "believer <rickard.laurin@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@glennsl/bs-jest": "0.4.8",
-    "bs-platform": "5.0.3",
-    "is-ci-cli": "1.1.1"
+    "@glennsl/bs-jest": "0.5.1",
+    "bs-platform": "8.2.0",
+    "is-ci-cli": "2.1.2"
   },
   "bugs": {
     "url": "https://github.com/believer/bs-telefonnummer/issues"

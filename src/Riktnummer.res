@@ -1,4 +1,4 @@
-let validRiktnummer = [|
+let validRiktnummer = [
   ("011", "Norrköping"),
   ("0120", "Åtvidaberg"),
   ("0121", "Söderköping"),
@@ -263,4 +263,4 @@ let validRiktnummer = [|
   ("0978", "Pajala"),
   ("0980", "Kiruna"),
   ("0981", "Vittangi"),
-|];
+]
