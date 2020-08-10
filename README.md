@@ -66,20 +66,20 @@ module Normalize = {
 let cleanPhoneNumber = Telefonnummer.Normalize.clean("08-12 3 45.67"); /* 081234567 */
 ```
 
-### Validator
+### Validate
 
-The `Validator` module can help you check if a phone number is valid. It cleans the phone number from any non-number characters.
+The `Validate` module can help you check if a phone number is valid. It cleans the phone number from any non-number characters.
 
 ```reason
-module Validator = {
-  let isValid: Js.String.t => bool;
+module Validate = {
+  let isValid: string => bool;
 }
 ```
 
 #### Example
 
 ```reason
-let isValid = Telefonnummer.Validator.isValid("08-12 3 45.67"); /* true */
+let isValid = Telefonnummer.Validate.isValid("08-12 3 45.67"); /* true */
 ```
 
 ### Link

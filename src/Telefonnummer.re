@@ -119,7 +119,7 @@ let parse = phoneNumber => {
   };
 };
 
-module Validator = {
+module Validate = {
   let findValidByRiktnummer = (digits, trailingDigits) => {
     let codes =
       Riktnummer.validRiktnummer

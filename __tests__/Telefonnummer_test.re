@@ -61,5 +61,5 @@ testAll(
     ("a08123456", false),
   ],
   ((phoneNumber, expected)) =>
-  expect(Telefonnummer.Validator.isValid(phoneNumber)) |> toBe(expected)
+  expect(Telefonnummer.Validate.isValid(phoneNumber)) |> toBe(expected)
 );
