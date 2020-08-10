@@ -21,7 +21,7 @@ Add `bs-telefonnummer` in `bs-dependencies` of `bsconfig.json`
 Takes a phone number of any kind and parses it to a standard format
 
 ```reason
-let parse: Js.String.t => Js.String.t;
+let parse: string => string;
 ```
 
 #### Example
@@ -41,7 +41,7 @@ type t =
   | Mobile
   | Landline;
 
-let typeOfNumber: Js.String.t => t;
+let typeOfNumber: string => t;
 ```
 
 #### Example
@@ -56,7 +56,7 @@ The `Normalize` module is exposed publically if you need to clean up a phone num
 
 ```reason
 module Normalize = {
-  let clean: Js.String.t => Js.String.t;
+  let clean: string => string;
 }
 ```
 
@@ -88,7 +88,7 @@ The `Link` module creates phone number links.
 
 ```reason
 module Link = {
-  let make: Js.String.t => Js.String.t;
+  let make: string => string;
 }
 ```
 
