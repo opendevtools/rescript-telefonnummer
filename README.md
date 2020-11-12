@@ -11,7 +11,7 @@ This is a port of my library [telefonnummer](https://github.com/believer/telefon
 npm install @opendevtools/rescript-telefonnummer
 ```
 
-Add `rescript-telefonnummer` in `bs-dependencies` of `bsconfig.json`
+Add `@opendevtools/rescript-telefonnummer` in `bs-dependencies` of `bsconfig.json`
 
 ## API
 
