@@ -1,6 +1,9 @@
 {
   "name": "@opendevtools/rescript-telefonnummer",
   "version": "2.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "bsb -make-world",
     "start": "BS_WATCH_CLEAR=true bsb -make-world -w",
