@@ -1,18 +1,17 @@
 # Telefonnummer
 
-![npm](https://img.shields.io/npm/v/bs-telefonnummer.svg)
-[![Build Status](https://travis-ci.com/believer/bs-telefonnummer.svg?branch=master)](https://travis-ci.com/believer/bs-telefonnummer)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ca9e96b91ab4cd9f683c/test_coverage)](https://codeclimate.com/github/believer/bs-telefonnummer/test_coverage)
+[![](https://github.com/opendevtools/rescript-telefonnummer/workflows/Release/badge.svg)](https://github.com/opendevtools/rescript-telefonnummer/actions?workflow=Release)
+[![npm (scoped)](https://img.shields.io/npm/v/rescript-telefonnummer)](https://npm.im/rescript-telefonnummer)
 
 This is a port of my library [telefonnummer](https://github.com/believer/telefonnummer) to ReasonML. It parses Swedish phone numbers into a standard format. It doesn't contain the full API of the original library as I felt it would be a good opportunity to start fresh.
 
 ## Installation
 
 ```
-npm install bs-telefonnummer
+npm install @opendevtools/rescript-telefonnummer
 ```
 
-Add `bs-telefonnummer` in `bs-dependencies` of `bsconfig.json`
+Add `rescript-telefonnummer` in `bs-dependencies` of `bsconfig.json`
 
 ## API
 
