@@ -1,7 +1,7 @@
 # Telefonnummer
 
 [![](https://github.com/opendevtools/rescript-telefonnummer/workflows/Release/badge.svg)](https://github.com/opendevtools/rescript-telefonnummer/actions?workflow=Release)
-[![npm (scoped)](https://img.shields.io/npm/v/@opendevtools/telefonnummer)](https://npm.im/@opendevtools/telefonnummer)
+[![npm (scoped)](https://img.shields.io/npm/v/@opendevtools/rescript-telefonnummer)](https://npm.im/@opendevtools/rescript-telefonnummer)
 
 This is a port of my library [telefonnummer](https://github.com/believer/telefonnummer) to ReasonML. It parses Swedish phone numbers into a standard format. It doesn't contain the full API of the original library as I felt it would be a good opportunity to start fresh.
 
