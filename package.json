@@ -1,6 +1,6 @@
 {
-  "name": "re-telefonnummer",
-  "version": "0.0.0",
+  "name": "@opendevtools/rescript-telefonnummer",
+  "version": "2.0.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "BS_WATCH_CLEAR=true bsb -make-world -w",
@@ -16,7 +16,7 @@
     "Telefonnummer",
     "Parser"
   ],
-  "author": "believer <rickard.laurin@gmail.com>",
+  "author": "believer <nattochdag@hey.com>",
   "license": "MIT",
   "devDependencies": {
     "@glennsl/bs-jest": "0.5.1",
@@ -24,11 +24,11 @@
     "is-ci-cli": "2.1.2"
   },
   "bugs": {
-    "url": "https://github.com/believer/re-telefonnummer/issues"
+    "url": "https://github.com/opendevtools/rescript-telefonnummer/issues"
   },
-  "homepage": "https://github.com/believer/re-telefonnummer#readme",
+  "homepage": "https://github.com/opendevtools/rescript-telefonnummer#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/believer/re-telefonnummer.git"
+    "url": "https://github.com/opendevtools/rescript-telefonnummer.git"
   }
 }
