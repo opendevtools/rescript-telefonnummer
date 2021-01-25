@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/opendevtools/rescript-telefonnummer/compare/v2.1.1...v2.1.2) (2021-01-25)
+
+
+### Bug Fixes
+
+* rename in bsconfig ([7b7e7f5](https://github.com/opendevtools/rescript-telefonnummer/commit/7b7e7f5a23635bb7c25754dff99d2442e8c08f53))
+
 ## [2.1.1](https://github.com/opendevtools/rescript-telefonnummer/compare/v2.1.0...v2.1.1) (2020-11-12)
 
 
