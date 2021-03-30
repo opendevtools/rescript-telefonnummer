@@ -24,7 +24,7 @@
   "devDependencies": {
     "@glennsl/bs-jest": "0.7.0",
     "bs-platform": "8.2.0",
-    "is-ci-cli": "2.1.2"
+    "is-ci-cli": "2.2.0"
   },
   "bugs": {
     "url": "https://github.com/opendevtools/rescript-telefonnummer/issues"
