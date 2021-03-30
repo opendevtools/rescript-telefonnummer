@@ -2,32 +2,24 @@ name: Run tests on PR
 
 on:
   pull_request:
-    branches: 
+    branches:
       - main
 
 jobs:
   test:
-    name: Test on node $ and $
-
-    runs-on: $
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-
+    name: Run tests
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js $
-      uses: actions/setup-node@v1
-      with:
-        node-version: $
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Run tests and linting
-      run: |
-        npm ci
-        npm run build
-        npm test
-      env:
-        CI: true
+      - name: Setup Node
+        uses: actions/setup-node@v1
 
+      - name: Run tests and linting
+        run: |
+          npm ci
+          npm run build
+          npm test
+        env:
+          CI: true
