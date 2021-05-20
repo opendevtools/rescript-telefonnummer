@@ -7,10 +7,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "BS_WATCH_CLEAR=true bsb -make-world -w",
-    "clean": "bsb -clean-world",
-    "test": "is-ci \"test:ci\" \"test:watch\"",
+    "build": "rescript build",
+    "start": "BS_WATCH_CLEAR=true rescript build -w",
+    "clean": "rescript clean -with-deps",
+    "test": "is-ci-cli test:ci test:watch",
     "test:ci": "jest",
     "test:watch": "jest --watch"
   },
@@ -23,8 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "@glennsl/bs-jest": "0.7.0",
-    "bs-platform": "9.0.2",
-    "is-ci-cli": "2.2.0"
+    "is-ci-cli": "2.2.0",
+    "rescript": "9.1.2"
   },
   "bugs": {
     "url": "https://github.com/opendevtools/rescript-telefonnummer/issues"
