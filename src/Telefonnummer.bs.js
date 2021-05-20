@@ -38,39 +38,23 @@ function replacer(regex, replaceWithOpt, param, __x) {
   return __x.replace(regex, replaceWith);
 }
 
-function fiveDigit(areaCode) {
-  return new RegExp("^(\\d{" + String(areaCode) + "})(\\d{3})(\\d{2})$");
-}
-
-function sixDigit(areaCode) {
-  return new RegExp("^(\\d{" + String(areaCode) + "})(\\d{2})(\\d{2})(\\d{2})$");
-}
-
-function sevenDigit(areaCode) {
-  return new RegExp("^(\\d{" + String(areaCode) + "})(\\d{3})(\\d{2})(\\d{2})$");
-}
-
-function eightDigit(areaCode) {
-  return new RegExp("^(\\d{" + String(areaCode) + "})(\\d{3})(\\d{3})(\\d{2})$");
-}
-
 var regex = /^08/;
 
-var partial_arg = sixDigit(2);
+var partial_arg = /^(\d{2})(\d{2})(\d{2})(\d{2})$/;
 
-function sixDigit$1(param) {
+function sixDigit(param) {
   return replacer(partial_arg, undefined, undefined, param);
 }
 
-var partial_arg$1 = sevenDigit(2);
+var partial_arg$1 = /^(\d{2})(\d{3})(\d{2})(\d{2})$/;
 
-function sevenDigit$1(param) {
+function sevenDigit(param) {
   return replacer(partial_arg$1, undefined, undefined, param);
 }
 
-var partial_arg$2 = eightDigit(2);
+var partial_arg$2 = /^(\d{2})(\d{3})(\d{3})(\d{2})$/;
 
-function eightDigit$1(param) {
+function eightDigit(param) {
   return replacer(partial_arg$2, undefined, undefined, param);
 }
 
@@ -78,27 +62,27 @@ var regex$1 = /^0(1[013689]|2[0136]|3[1356]|4[0246]|54|6[03]|7[0235-9]|9[09])/;
 
 var partial_arg$3 = "$1-$2 $3";
 
-var partial_arg$4 = fiveDigit(3);
+var partial_arg$4 = /^(\d{3})(\d{3})(\d{2})$/;
 
-function fiveDigit$1(param) {
+function fiveDigit(param) {
   return replacer(partial_arg$4, partial_arg$3, undefined, param);
 }
 
-var partial_arg$5 = sixDigit(3);
+var partial_arg$5 = /^(\d{3})(\d{2})(\d{2})(\d{2})$/;
 
-function sixDigit$2(param) {
+function sixDigit$1(param) {
   return replacer(partial_arg$5, undefined, undefined, param);
 }
 
-var partial_arg$6 = sevenDigit(3);
+var partial_arg$6 = /^(\d{3})(\d{3})(\d{2})(\d{2})$/;
 
-function sevenDigit$2(param) {
+function sevenDigit$1(param) {
   return replacer(partial_arg$6, undefined, undefined, param);
 }
 
-var partial_arg$7 = sixDigit(4);
+var partial_arg$7 = /^(\d{4})(\d{2})(\d{2})(\d{2})$/;
 
-function sixDigit$3(param) {
+function sixDigit$2(param) {
   return replacer(partial_arg$7, undefined, undefined, param);
 }
 
@@ -137,68 +121,72 @@ var validThreeDigit = findValidByRiktnummer(3, 7);
 var validFourDigit = findValidByRiktnummer(4, 6);
 
 function typeOfNumber(number) {
-  if (number.normalize().startsWith("07")) {
-    return /* Mobile */1;
-  } else if (phoneNumbers.includes(number)) {
+  if (phoneNumbers.includes(number)) {
     return /* VoiceMail */0;
+  } else if (number.normalize().startsWith("07")) {
+    return {
+            TAG: /* Mobile */0,
+            _0: clean(number)
+          };
   } else {
-    return /* Landline */2;
+    return {
+            TAG: /* Landline */1,
+            _0: clean(number)
+          };
   }
 }
 
 function parse(phoneNumber) {
-  var match = typeOfNumber(phoneNumber);
-  switch (match) {
-    case /* VoiceMail */0 :
-        return "Röstbrevlåda";
-    case /* Mobile */1 :
-        return Curry._1(sevenDigit$2, clean(phoneNumber));
-    case /* Landline */2 :
-        var pn = clean(phoneNumber);
-        var match$1 = digits(pn);
-        var match$2 = pn.length;
-        var tmp;
-        var exit = 0;
-        if (match$1 === "Two") {
-          switch (match$2) {
-            case 8 :
-                tmp = sixDigit$1;
-                break;
-            case 9 :
-                tmp = sevenDigit$1;
-                break;
-            case 10 :
-                tmp = eightDigit$1;
-                break;
-            default:
-              exit = 1;
-          }
-        } else if (match$1 === "Three") {
-          switch (match$2) {
-            case 8 :
-                tmp = fiveDigit$1;
-                break;
-            case 9 :
-                tmp = sixDigit$2;
-                break;
-            case 10 :
-                tmp = sevenDigit$2;
-                break;
-            default:
-              exit = 1;
-          }
-        } else if (match$1 === "Four") {
-          tmp = sixDigit$3;
-        } else {
+  var pn = typeOfNumber(phoneNumber);
+  if (typeof pn === "number") {
+    return "Röstbrevlåda";
+  } else if (pn.TAG === /* Mobile */0) {
+    return Curry._1(sevenDigit$1, pn._0);
+  } else {
+    var pn$1 = pn._0;
+    var match = digits(pn$1);
+    var match$1 = pn$1.length;
+    var tmp;
+    var exit = 0;
+    if (match === "Two") {
+      switch (match$1) {
+        case 8 :
+            tmp = sixDigit;
+            break;
+        case 9 :
+            tmp = sevenDigit;
+            break;
+        case 10 :
+            tmp = eightDigit;
+            break;
+        default:
           exit = 1;
-        }
-        if (exit === 1) {
-          tmp = (function (param) {
-              return pn;
-            });
-        }
-        return tmp(pn);
-    
+      }
+    } else if (match === "Three") {
+      switch (match$1) {
+        case 8 :
+            tmp = fiveDigit;
+            break;
+        case 9 :
+            tmp = sixDigit$1;
+            break;
+        case 10 :
+            tmp = sevenDigit$1;
+            break;
+        default:
+          exit = 1;
+      }
+    } else if (match === "Four") {
+      tmp = sixDigit$2;
+    } else {
+      exit = 1;
+    }
+    if (exit === 1) {
+      tmp = (function (param) {
+          return pn$1;
+        });
+    }
+    return tmp(pn$1);
   }
 }
 
@@ -206,23 +194,21 @@ function isValid(phoneNumber) {
   if (/[a-z]/gi.test(phoneNumber)) {
     return false;
   }
-  var normalized = clean(phoneNumber);
-  var digits$1 = digits(normalized);
-  var match = typeOfNumber(normalized);
-  switch (match) {
-    case /* VoiceMail */0 :
-        return true;
-    case /* Mobile */1 :
-        return valid.test(normalized);
-    case /* Landline */2 :
-        if (digits$1 === "Three") {
-          return validThreeDigit.test(normalized);
-        } else if (digits$1 === "Four") {
-          return validFourDigit.test(normalized);
-        } else {
-          return validTwoDigit.test(normalized);
-        }
-    
+  var pn = typeOfNumber(phoneNumber);
+  if (typeof pn === "number") {
+    return true;
+  }
+  if (pn.TAG === /* Mobile */0) {
+    return valid.test(pn._0);
+  }
+  var pn$1 = pn._0;
+  var digits$1 = digits(pn$1);
+  if (digits$1 === "Three") {
+    return validThreeDigit.test(pn$1);
+  } else if (digits$1 === "Four") {
+    return validFourDigit.test(pn$1);
+  } else {
+    return validTwoDigit.test(pn$1);
   }
 }
 
@@ -235,4 +221,4 @@ exports.Normalize = Normalize;
 exports.Link = Link;
 exports.typeOfNumber = typeOfNumber;
 exports.parse = parse;
-/* partial_arg Not a pure module */
+/* validThreeDigit Not a pure module */

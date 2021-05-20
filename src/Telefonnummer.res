@@ -1,7 +1,7 @@
 type t =
   | VoiceMail
-  | Mobile
-  | Landline
+  | Mobile(string)
+  | Landline(string)
 
 module Normalize = {
   let clean = phoneNumber => {
@@ -28,38 +28,24 @@ module AreaCode = {
 
   let replacer = (regex, ~replaceWith="$1-$2 $3 $4", ()) => replaceByRe(_, regex, replaceWith)
 
-  module Common = {
-    let fiveDigit = areaCode =>
-      ("^(\d{" ++ areaCode->string_of_int ++ "})(\d{3})(\d{2})$")->Js.Re.fromString
-
-    let sixDigit = areaCode =>
-      ("^(\d{" ++ areaCode->string_of_int ++ "})(\d{2})(\d{2})(\d{2})$")->Js.Re.fromString
-
-    let sevenDigit = areaCode =>
-      ("^(\d{" ++ areaCode->string_of_int ++ "})(\d{3})(\d{2})(\d{2})$")->Js.Re.fromString
-
-    let eightDigit = areaCode =>
-      ("^(\d{" ++ areaCode->string_of_int ++ "})(\d{3})(\d{3})(\d{2})$")->Js.Re.fromString
-  }
-
   module Two = {
     let regex = %re("/^08/")
 
-    let sixDigit = replacer(Common.sixDigit(2), ())
-    let sevenDigit = replacer(Common.sevenDigit(2), ())
-    let eightDigit = replacer(Common.eightDigit(2), ())
+    let sixDigit = replacer(%re("/^(\d{2})(\d{2})(\d{2})(\d{2})$/"), ())
+    let sevenDigit = replacer(%re("/^(\d{2})(\d{3})(\d{2})(\d{2})$/"), ())
+    let eightDigit = replacer(%re("/^(\d{2})(\d{3})(\d{3})(\d{2})$/"), ())
   }
 
   module Three = {
     let regex = %re("/^0(1[013689]|2[0136]|3[1356]|4[0246]|54|6[03]|7[0235-9]|9[09])/")
 
-    let fiveDigit = replacer(Common.fiveDigit(3), ~replaceWith="$1-$2 $3", ())
-    let sixDigit = replacer(Common.sixDigit(3), ())
-    let sevenDigit = replacer(Common.sevenDigit(3), ())
+    let fiveDigit = replacer(%re("/^(\d{3})(\d{3})(\d{2})$/"), ~replaceWith="$1-$2 $3", ())
+    let sixDigit = replacer(%re("/^(\d{3})(\d{2})(\d{2})(\d{2})$/"), ())
+    let sevenDigit = replacer(%re("/^(\d{3})(\d{3})(\d{2})(\d{2})$/"), ())
   }
 
   module Four = {
-    let sixDigit = replacer(Common.sixDigit(4), ())
+    let sixDigit = replacer(%re("/^(\d{4})(\d{2})(\d{2})(\d{2})$/"), ())
   }
 
   let digits = value =>
@@ -88,7 +74,6 @@ module Mobile = {
 }
 
 module Landline = {
-  open Js.String2
   open AreaCode
 
   let findValidByRiktnummer = (digits, trailingDigits) => {
@@ -96,7 +81,7 @@ module Landline = {
 
     let codes =
       Riktnummer.validRiktnummer
-      ->filter(((number, _)) => number->Js.String.length === digits)
+      ->filter(((number, _)) => number->Js.String2.length === digits)
       ->map(((number, _)) => number)
       ->joinWith("|")
 
@@ -108,7 +93,7 @@ module Landline = {
   let validFourDigit = findValidByRiktnummer(4, 6)
 
   let make = pn =>
-    pn->switch (pn->digits, pn->length) {
+    pn->switch (pn->digits, pn->Js.String2.length) {
     | (#Two, 8) => Two.sixDigit
     | (#Two, 9) => Two.sevenDigit
     | (#Two, 10) => Two.eightDigit
@@ -116,7 +101,7 @@ module Landline = {
     | (#Three, 9) => Three.sixDigit
     | (#Three, 10) => Three.sevenDigit
     | (#Four, _) => Four.sixDigit
-    | (_, _) => _ => pn
+    | _ => _ => pn
     }
 
   let validate = (normalized, digits) =>
@@ -129,31 +114,27 @@ module Landline = {
 
 let typeOfNumber = number =>
   switch number {
-  | pn if Mobile.isMobile(pn) => Mobile
   | pn if VoiceMail.isVoicemail(pn) => VoiceMail
-  | _ => Landline
+  | pn if Mobile.isMobile(pn) => Mobile(Normalize.clean(pn))
+  | pn => Landline(Normalize.clean(pn))
   }
 
 let parse = phoneNumber =>
   switch typeOfNumber(phoneNumber) {
   | VoiceMail => `Röstbrevlåda`
-  | Mobile => phoneNumber->Normalize.clean->Mobile.make
-  | Landline => phoneNumber->Normalize.clean->Landline.make
+  | Mobile(pn) => Mobile.make(pn)
+  | Landline(pn) => Landline.make(pn)
   }
 
 module Validate = {
   let isValid = phoneNumber =>
     switch phoneNumber |> Js.Re.test_(%re("/[a-z]/gi")) {
     | true => false
-    | false => {
-        let normalized = Normalize.clean(phoneNumber)
-        let digits = AreaCode.digits(normalized)
-
-        switch typeOfNumber(normalized) {
-        | VoiceMail => true
-        | Mobile => Mobile.validate(normalized)
-        | Landline => Landline.validate(normalized, digits)
-        }
+    | false =>
+      switch typeOfNumber(phoneNumber) {
+      | VoiceMail => true
+      | Mobile(pn) => Mobile.validate(pn)
+      | Landline(pn) => Landline.validate(pn, AreaCode.digits(pn))
       }
     }
 }
