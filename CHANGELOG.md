@@ -1,3 +1,16 @@
+# [3.0.0](https://github.com/opendevtools/rescript-telefonnummer/compare/v2.1.2...v3.0.0) (2021-05-20)
+
+
+### Features
+
+* include phone number in type of number ([64cc0d8](https://github.com/opendevtools/rescript-telefonnummer/commit/64cc0d8a9136a3e5f3a080c2ef5fab0ba6f3eccf))
+
+
+### BREAKING CHANGES
+
+* Type `t` has changed to include phone number
+for mobile and landline numbers
+
 ## [2.1.2](https://github.com/opendevtools/rescript-telefonnummer/compare/v2.1.1...v2.1.2) (2021-01-25)
 
 

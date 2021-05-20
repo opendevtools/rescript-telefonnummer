@@ -1,6 +1,6 @@
 {
   "name": "@opendevtools/rescript-telefonnummer",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "Phone number formatter for Swedish phone numbers",
   "author": "Rickard Natt och Dag <rickard@hey.com> (http://willcodefor.beer/)",
   "publishConfig": {
