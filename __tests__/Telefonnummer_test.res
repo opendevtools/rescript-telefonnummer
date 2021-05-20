@@ -2,8 +2,7 @@ open Jest
 open Expect
 
 test("phonenumber link", () =>
-  expect(Telefonnummer.Link.make("070-123.45x67"))
-  |> toEqual("tel:0701234567")
+  expect(Telefonnummer.Link.make("070-123.45x67")) |> toEqual("tel:0701234567")
 )
 
 testAll("voicemail number", list{"888", "333", "222", "147"}, phoneNumber =>
@@ -22,8 +21,7 @@ testAll(
     ("+46(0)701234567", "070-123 45 67"),
     ("+46 0700123456", "070-012 34 56"),
   },
-  ((phoneNumber, expected)) =>
-  expect(Telefonnummer.parse(phoneNumber)) |> toBe(expected)
+  ((phoneNumber, expected)) => expect(Telefonnummer.parse(phoneNumber)) |> toBe(expected),
 )
 
 testAll(
@@ -45,8 +43,7 @@ testAll(
     ("460500123456", "0500-12 34 56"),
     ("05001234567", "05001234567"),
   },
-  ((phoneNumber, expected)) =>
-  expect(Telefonnummer.parse(phoneNumber)) |> toBe(expected)
+  ((phoneNumber, expected)) => expect(Telefonnummer.parse(phoneNumber)) |> toBe(expected),
 )
 
 testAll(
@@ -61,5 +58,5 @@ testAll(
     ("a08123456", false),
   },
   ((phoneNumber, expected)) =>
-  expect(Telefonnummer.Validate.isValid(phoneNumber)) |> toBe(expected)
+    expect(Telefonnummer.Validate.isValid(phoneNumber)) |> toBe(expected),
 )
